@@ -1,0 +1,46 @@
+<div class="container">
+    <app-menu></app-menu>
+    <table style="margin-top: 32px" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">Correo</th>
+                <th scope="col">Nivel de Ingles</th>
+                <th scope="col">Conocimientos tecnicos</th>
+                <th scope="col">CV</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of usersDetail">
+                <th scope="row">{{ user.idUser }}</th>
+                <td>{{ user.email }}</td>
+                <td>{{ user.englishLevel }}</td>
+                <td>{{ user.knowledge }}</td>
+                <td>{{ user.cv }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-outline-danger" (click)=" addUserActivate()">Agregar Usuario</button>
+    <div class="form-group add-user-container" *ngIf="addUserFlag">
+        <div class="input-container">
+            <label for="email">Correo Electronico</label>
+            <input [(ngModel)]="user.email" class="form-control" id="email" type="email" placeholder="ejemplo@gmail.com">
+        </div>
+        <div class="input-container">
+            <label for="english">Nivel de Ingles</label>
+            <input [(ngModel)]="user.englishLevel" class="form-control" id="english" type="text" placeholder="Ej. B1">
+        </div>
+        <div class="input-container">
+            <label for="knowledge">Conocimientos Tecnicos</label>
+            <input [(ngModel)]="user.knowledge" class="form-control" id="knowledge" type="text" placeholder="Ej. React, Node">
+        </div>
+        <div class="input-container">
+            <label for="cv">CV Drive</label>
+            <input [(ngModel)]="user.cv" class="form-control" id="cv" type="text" placeholder="CV link drive">
+        </div>
+        <div class="input-container">
+            <button type="button" class="btn btn-danger" (click)="registroUser()">Guardar usuario</button>
+        </div>
+        
+    </div>
+</div>

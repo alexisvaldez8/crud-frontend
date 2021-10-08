@@ -5,14 +5,18 @@
     <h1 class="title">Code Challenge</h1>
 </div>
 <div class="row">
-    <div class="col">
+    <div class="col-10">
         <div ngbDropdown class="d-inline-block">
             <button class="btn btn-outline-danger" id="dropdownBasic1" ngbDropdownToggle>Menu de inicio</button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                <button ngbDropdownItem [routerLink]="['/']">Inicio</button>
-                <button ngbDropdownItem [routerLink]="['/']">Definiciones</button>
-                <button ngbDropdownItem [routerLink]="['/']">Ejemplos practicos</button>
+                <button ngbDropdownItem [routerLink]="['/home']">Inicio</button>
+                <button ngbDropdownItem [routerLink]="['/users']">Usuarios</button>
+                <button ngbDropdownItem [routerLink]="['/accounts']">Cuentas</button>
+                <button ngbDropdownItem [routerLink]="['/changes']">Movimientos</button>
             </div>
         </div>
+    </div>
+    <div class="col-2">
+        <button type="button" class="btn btn-outline-danger" (click)="cerrarSesion()">Cerrar Sesion</button>
     </div>
 </div>

@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  public user: any;
+  public email: any;
   public password: any;
   public loginRes: any;
   public router: Router;
@@ -16,8 +16,10 @@ export class LoginComponent implements OnInit {
     this.router = _router;
   }
 
- login(user: string, password: string) {
-    this.apiService.getLogin(user, password).subscribe(
+ login(email: string, password: string) {
+   console.log(email, password);
+   
+    this.apiService.getLogin(email, password).subscribe(
       async (res) => {
         console.log(res);
         this.loginRes = res;
@@ -30,9 +32,10 @@ export class LoginComponent implements OnInit {
 
   validarlogin(){
     if(this.loginRes.length > 0){
+      sessionStorage.setItem("Sesion", JSON.stringify(this.loginRes));
       this.router.navigateByUrl('/home');
     }else {
-      alert("¡Usuario y/o contraseña invalidos!")
+      alert("Correo y/o contraseña invalidos!")
     }
   }
 

@@ -5,13 +5,13 @@
         </div>
         <div class="input-container">
             <label for="user">Usuario</label>
-            <input id="user" type="text" [(ngModel)]="user" class="form-control" aria-label="Default"
+            <input id="user" type="text" [(ngModel)]="email" class="form-control" aria-label="Default"
                 aria-describedby="inputGroup-sizing-default" placeholder="Usuario">
             <label for="pass">Contraseña</label>
             <input id="pass" type="password" [(ngModel)]="password" class="form-control" aria-label="Default"
                 aria-describedby="inputGroup-sizing-default" placeholder="Contraseña">
             <div class="btn-container">
-                <button class="btn btn-primary" (click)="login(user,password)" >Ingresar</button>    
+                <button class="btn btn-primary" (click)="login(email,password)" >Ingresar</button>    
             </div>
         </div>
     </div>

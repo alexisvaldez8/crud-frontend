@@ -13,12 +13,18 @@ import { MenuComponent } from './menu/menu.component';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { UsersComponent } from './users/users.component';
+import { AccountsComponent } from './accounts/accounts.component';
+import { ChangesComponent } from './changes/changes.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomePageComponent,
-    MenuComponent
+    MenuComponent,
+    UsersComponent,
+    AccountsComponent,
+    ChangesComponent
   ],
   imports: [
     BrowserModule,

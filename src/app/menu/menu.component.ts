@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -7,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  public router: Router;
+  constructor(_router: Router) {
+    this.router = _router;
+   }
 
   ngOnInit(): void {
   }
+
+  cerrarSesion(){
+    sessionStorage.removeItem("Sesion");
+    this.router.navigateByUrl('/');
+  }
+  
 
 }
