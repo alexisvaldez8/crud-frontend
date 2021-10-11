@@ -1,6 +1,6 @@
 <div class="container">
     <app-menu></app-menu>
-    <table style="margin-top: 32px" class="table table-striped">
+    <table *ngIf="!addUserFlag" style="margin-top: 32px" class="table table-striped">
         <thead>
             <tr>
                 <th scope="col">id</th>
@@ -8,6 +8,7 @@
                 <th scope="col">Nivel de Ingles</th>
                 <th scope="col">Conocimientos tecnicos</th>
                 <th scope="col">CV</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -17,11 +18,14 @@
                 <td>{{ user.englishLevel }}</td>
                 <td>{{ user.knowledge }}</td>
                 <td>{{ user.cv }}</td>
+                <td><button class="btn btn-outline-danger" (click)="deleteUser(user.idUser)">Eliminar</button></td>
             </tr>
         </tbody>
     </table>
-    <button type="button" class="btn btn-outline-danger" (click)=" addUserActivate()">Agregar Usuario</button>
-    <div class="form-group add-user-container" *ngIf="addUserFlag">
+    <button style="margin-top: 20px;" type="button" class="btn btn-outline-danger" (click)=" addUserActivate()">Agregar Usuario</button>
+    <button style="margin-top: 20px; margin-left: 16px;" type="button" class="btn btn-outline-danger" (click)="showUsers()" *ngIf="addUserFlag">Ver Usuarios</button>
+
+    <div id="addUser" class="form-group add-user-container" *ngIf="addUserFlag">
         <div class="input-container">
             <label for="email">Correo Electronico</label>
             <input [(ngModel)]="user.email" class="form-control" id="email" type="email" placeholder="ejemplo@gmail.com">
@@ -39,7 +43,7 @@
             <input [(ngModel)]="user.cv" class="form-control" id="cv" type="text" placeholder="CV link drive">
         </div>
         <div class="input-container">
-            <button type="button" class="btn btn-danger" (click)="registroUser()">Guardar usuario</button>
+            <button type="button" class="btn btn-danger" (click)="saveUser()">Guardar usuario</button>
         </div>
         
     </div>

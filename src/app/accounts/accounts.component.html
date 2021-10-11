@@ -1,1 +1,51 @@
-<p>accounts works!</p>
+<div class="container">
+    <app-menu></app-menu>
+    <table *ngIf="!addAccountFlag" style="margin-top: 32px" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">Nombre de la cuenta</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Responsable</th>
+                <th scope="col">Consulta de equipo</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let account of accounts">
+                <th scope="row">{{ account.idAccount }}</th>
+                <td>{{ account.accountName }}</td>
+                <td>{{ account.clientName }}</td>
+                <td>{{ account.ownerOperation }}</td>
+                <td>{{ account.checkAccount }}</td>
+                <td><button class="btn btn-outline-danger" (click)="deleteAccount(account.idAccount)">Eliminar</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <button style="margin-top: 20px;" type="button" class="btn btn-outline-danger" (click)="addAccountActivate()">Agregar Cuenta</button>
+    <button style="margin-top: 20px; margin-left: 16px;" type="button" class="btn btn-outline-danger" (click)="showAccounts()" *ngIf="addAccountFlag">Ver Cuentas</button>
+    
+    <div id="addAccount" class="form-group add-account-container" *ngIf="addAccountFlag">
+        <div class="input-container">
+            <label for="email">Nombre de la cuenta</label>
+            <input [(ngModel)]="account.accountName" class="form-control" id="email" type="email" placeholder="Ej. Tecnologia">
+        </div>
+        <div class="input-container">
+            <label for="english">Nombre del cliente</label>
+            <input [(ngModel)]="account.clientName" class="form-control" id="english" type="text" placeholder="Microsoft">
+        </div>
+        <div class="input-container">
+            <label for="knowledge">Responsable</label>
+            <input [(ngModel)]="account.ownerOperation" class="form-control" id="knowledge" type="text" placeholder="Ej. Juan Perez">
+        </div>
+        <div class="input-container">
+            <label for="cv">Consulta de equipo</label>
+            <input [(ngModel)]="account.checkAccount" class="form-control" id="cv" type="text" placeholder="Ej.">
+        </div>
+        <div class="input-container">
+            <button type="button" class="btn btn-danger" (click)="addAccount()">Guardar cuenta</button>
+        </div>
+        
+    </div>
+  </div>
+
