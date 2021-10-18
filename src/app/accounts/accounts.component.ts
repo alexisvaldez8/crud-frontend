@@ -35,7 +35,17 @@ export class AccountsComponent implements OnInit {
     );
   }
   deleteAccount(idAccount: number){
-    console.log(idAccount);
+    console.log(idAccount, '<--usuario a borrar');
+    this.apiService.deleteAccount(idAccount).subscribe(
+      (res) => {
+        console.log(res);
+        alert("¡Cuenta eliminada correctamente!");
+        location.reload();
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
   }
   showAccounts(){
     this.addAccountFlag = false;
@@ -44,7 +54,8 @@ export class AccountsComponent implements OnInit {
     this.addAccountFlag = true;
   }
   addAccount(){
-    delete this.account.idAccount;
+    if(this.account.accountName !== '' && this.account.checkAccount !== '' && this.account.clientName !== '' && this.account.ownerOperation !== ''){
+      delete this.account.idAccount;
     console.log(this.account);
     this.apiService.saveAccount(this.account).subscribe(
       (res) => {
@@ -58,6 +69,10 @@ export class AccountsComponent implements OnInit {
         console.error(err);
       }
     );
+    }else {
+      alert('¡Debes completar todos los campos!')
+    }
+    
   }
   cleanAccount() {
     this.account = {

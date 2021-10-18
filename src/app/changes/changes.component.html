@@ -1,1 +1,51 @@
-<p>changes works!</p>
+<div class="container">
+    <app-menu></app-menu>
+
+    <table *ngIf="!addChangeFlag" style="margin-top: 32px" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">Equipo</th>
+                <th scope="col">Usuario Responsable</th>
+                <th scope="col">Fecha inicio</th>
+                <th scope="col">Fecha fin</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let change of changes">
+                <th scope="row">{{ change.idChanges }}</th>
+                <td>{{ change.computer }}</td>
+                <td>{{ change.email }}</td>
+                <td>{{ change.dateStart | date:'yyyy-MM-dd' }}</td>
+                <td>{{ change.dateEnd }}</td>
+                <td><button class="btn btn-outline-danger" (click)="deleteChange(change.idChanges)">Eliminar</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="row">
+        <button style="margin-top: 20px;" type="button" class="col-3 btn btn-outline-danger" (click)="addChangeActivate()" *ngIf="!addChangeFlag">Agregar movimiento</button>
+        <button style="margin-top: 20px; margin-left: 16px;" type="button" class="col-3 btn btn-outline-danger" (click)="updateChange()" *ngIf="!addChangeFlag">Actualizar movimiento</button>
+        <button style="margin-top: 20px; margin-left: 16px;" type="button" class=" col-3 btn btn-outline-danger" (click)="showChanges()" *ngIf="addChangeFlag">Ver Cambios</button>
+    
+    </div>
+    
+    <div id="addChange" class="form-group add-change-container" *ngIf="addChangeFlag">
+        <div class="input-container">
+            <label for="computer">Equipo a asignar</label>
+            <input [(ngModel)]="change.computer" class="form-control" id="computer" type="text" placeholder="Ej. Lenovo T40">
+        </div>
+        <div class="input-container">
+            <label for="user">Responsable</label>
+            <select [(ngModel)]="change.idUser" class="select-css" aria-label="Default select example" name="user" id="user">
+                <option *ngFor="let user of usersDetail" >{{user.idUser}}</option>
+            </select>
+        </div>
+        <div class="input-container">
+            <button type="button" class="btn btn-danger" (click)="newChange()">Guardar movimiento</button>
+        </div>
+        
+    </div>
+
+</div>
+   

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Account, User } from '../modelos/models';
+import { Account, Change, User } from '../modelos/models';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +20,9 @@ export class ApiService {
   getAccounts(){
     return this.http.get(`${this.API}/accounts`);
   }
+  getChanges(){
+    return this.http.get(`${this.API}/changes`);
+  }
   saveUser(user : User){
     return this.http.post(`${this.API}/users-detail-register/`,user)
   }
@@ -28,5 +31,14 @@ export class ApiService {
   }
   saveAccount(account : Account){
     return this.http.post(`${this.API}/accounts-register/`,account)
+  }
+  saveChange(change : Change){
+    return this.http.post(`${this.API}/changes-register/`,change)
+  }
+  deleteAccount(idAccount : number){
+    return this.http.delete(`${this.API}/accounts/${idAccount}`)
+  }
+  deleteChange(idChanges : number){
+    return this.http.delete(`${this.API}/changes/${idChanges}`)
   }
 }

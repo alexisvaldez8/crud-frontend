@@ -42,7 +42,9 @@ export class UsersComponent implements OnInit {
     };
   }
   saveUser() {
-    delete this.user.idUser;
+
+    if(this.user.email !== '' && this.user.cv !== '' && this.user.englishLevel !== '' && this.user.knowledge !== '' ){
+      delete this.user.idUser;
     console.log(this.user);
     this.apiService.saveUser(this.user).subscribe(
       (res) => {
@@ -56,6 +58,10 @@ export class UsersComponent implements OnInit {
         console.error(err);
       }
     );
+    } else {
+      alert('¡Debes completar todos los campos!')
+    }
+    
   }
 
   addUserActivate() {
