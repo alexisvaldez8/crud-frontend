@@ -10,9 +10,9 @@
             <button class="btn btn-outline-danger" id="dropdownBasic1" ngbDropdownToggle>Menu de inicio</button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                 <button ngbDropdownItem [routerLink]="['/home']">Inicio</button>
-                <button ngbDropdownItem [routerLink]="['/users']">Usuarios</button>
-                <button ngbDropdownItem [routerLink]="['/accounts']">Cuentas</button>
-                <button ngbDropdownItem [routerLink]="['/changes']">Movimientos</button>
+                <button  *ngIf="userRole === 'admin' || userRole === 'super_admin' " ngbDropdownItem [routerLink]="['/users']">Usuarios</button>
+                <button  *ngIf="userRole === 'admin' || userRole === 'super_admin' " ngbDropdownItem [routerLink]="['/accounts']">Cuentas</button>
+                <button  *ngIf="userRole === 'admin' || userRole === 'super_admin' " ngbDropdownItem [routerLink]="['/changes']">Movimientos</button>
             </div>
         </div>
     </div>

@@ -33,11 +33,11 @@
     <div id="addChange" class="form-group add-change-container" *ngIf="addChangeFlag">
         <div class="input-container">
             <label for="computer">Equipo a asignar</label>
-            <input [(ngModel)]="change.computer" class="form-control" id="computer" type="text" placeholder="Ej. Lenovo T40">
+            <input [(ngModel)]="change.computer" class="form-control" id="computer" type="text" placeholder="Ej. Lenovo T40" (blur)="checkChange()">
         </div>
         <div class="input-container">
             <label for="user">Responsable</label>
-            <select [(ngModel)]="change.idUser" class="select-css" aria-label="Default select example" name="user" id="user">
+            <select [(ngModel)]="change.idUser" class="select-css" aria-label="Default select example" name="user" id="user" [disabled]="selectDisabled">
                 <option *ngFor="let user of usersDetail" >{{user.idUser}}</option>
             </select>
         </div>

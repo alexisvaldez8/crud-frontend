@@ -12,6 +12,8 @@ export class UsersComponent implements OnInit {
 
   usersDetail: any;
   addUserFlag: boolean = false;
+  userRole: any
+  userActual: any
 
   user: User = {
     idUser: 0,
@@ -22,6 +24,15 @@ export class UsersComponent implements OnInit {
   };
   ngOnInit(): void {
     this.getUsers();
+    this. checkUser();
+    console.log(this.userRole);
+    
+  }
+
+  checkUser(){
+    this.userActual = sessionStorage.getItem("Sesion");
+    this.userActual = JSON.parse(this.userActual);
+    this.userRole = this.userActual[0].role
   }
 
   getUsers() {

@@ -8,17 +8,27 @@ import { Router } from '@angular/router';
 export class MenuComponent implements OnInit {
 
   public router: Router;
+  userRole: any
+  userActual: any
   constructor(_router: Router) {
     this.router = _router;
    }
 
   ngOnInit(): void {
+    this. checkUser();
+    console.log(this.userRole);
   }
 
   cerrarSesion(){
     sessionStorage.removeItem("Sesion");
     this.router.navigateByUrl('/');
   }
+  checkUser(){
+    this.userActual = sessionStorage.getItem("Sesion");
+    this.userActual = JSON.parse(this.userActual);
+    this.userRole = this.userActual[0].role
+  }
+
   
 
 }
