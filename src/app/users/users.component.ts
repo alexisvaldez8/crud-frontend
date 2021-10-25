@@ -92,17 +92,19 @@ export class UsersComponent implements OnInit {
   showUsers() {
     this.addUserFlag = false;
   }
-  deleteUser(idUser: number) {
-    console.log(idUser, '<--usuario a borrar');
-    this.apiService.deleteUser(idUser).subscribe(
-      (res) => {
-        console.log(res);
-        alert('¡Usuario eliminado correctamente!');
-        location.reload();
-      },
-      (err) => {
-        console.error(err);
-      }
-    );
+  deleteUser(idUser: number, email: string) {
+    if (confirm('¿Seguro que deseas eliminar este usuario?(' + email + ')')) {
+      console.log(idUser, '<--usuario a borrar');
+      this.apiService.deleteUser(idUser).subscribe(
+        (res) => {
+          console.log(res);
+          alert('¡Usuario eliminado correctamente!');
+          location.reload();
+        },
+        (err) => {
+          console.error(err);
+        }
+      );
+    }
   }
 }

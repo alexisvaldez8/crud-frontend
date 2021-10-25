@@ -18,7 +18,7 @@
                 <td>{{ user.englishLevel }}</td>
                 <td>{{ user.knowledge }}</td>
                 <td>{{ user.cv }}</td>
-                <td *ngIf="userRole === 'admin' || userRole === 'super_admin' " ><button class="btn btn-outline-danger" (click)="deleteUser(user.idUser)">Eliminar</button></td>
+                <td *ngIf="userRole === 'admin' || userRole === 'super_admin' " ><button class="btn btn-outline-danger" (click)="deleteUser(user.idUser, user.email)">Eliminar</button></td>
             </tr>
         </tbody>
     </table>
