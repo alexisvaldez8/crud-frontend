@@ -43,6 +43,14 @@
             <input [(ngModel)]="user.cv" class="form-control" id="cv" type="text" placeholder="CV link drive">
         </div>
         <div class="input-container">
+            <label for="role">Role</label>
+            <input [(ngModel)]="user.role" class="form-control" id="role" type="text" placeholder="super_admin, admin, normal">
+        </div>        
+        <div class="input-container">
+            <label for="password">Contraseña</label>
+            <input [(ngModel)]="user.password" class="form-control" id="password" type="password" placeholder="">
+        </div>
+        <div class="input-container">
             <button type="button" class="btn btn-danger" (click)="saveUser()">Guardar usuario</button>
         </div>
         

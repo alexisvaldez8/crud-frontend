@@ -20,9 +20,13 @@ export class MenuComponent implements OnInit {
   }
 
   cerrarSesion(){
-    sessionStorage.removeItem("Sesion");
-    this.router.navigateByUrl('/');
+    if(confirm("¿Deseas salir?")){
+			alert("Sesion terminada exitosamente");
+      sessionStorage.removeItem("Sesion");
+      this.router.navigateByUrl('/');
+		}
   }
+
   checkUser(){
     this.userActual = sessionStorage.getItem("Sesion");
     this.userActual = JSON.parse(this.userActual);

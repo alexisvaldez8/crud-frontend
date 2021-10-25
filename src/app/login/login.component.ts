@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { Router } from '@angular/router';
+import {Md5} from 'ts-md5/dist/md5';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,15 +13,19 @@ export class LoginComponent implements OnInit {
   public password: any;
   public loginRes: any;
   public router: Router;
-
+  public md5 = new Md5();
   constructor(private apiService: ApiService, _router: Router) {
     this.router = _router;
   }
 
- login(email: string, password: string) {
+ login(email: string, password: any) {
    console.log(email, password);
+   let pass = this.md5.appendStr(password).end();
+   console.log(pass);
    
-    this.apiService.getLogin(email, password).subscribe(
+   // console.log(this.md5.appendStr(password).end());
+   
+    this.apiService.getLogin(email, pass).subscribe(
       async (res) => {
         console.log(res);
         this.loginRes = res;

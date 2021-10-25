@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { User } from '../modelos/models';
+import { Md5 } from 'ts-md5/dist/md5';
 
 @Component({
   selector: 'app-users',
@@ -12,8 +13,9 @@ export class UsersComponent implements OnInit {
 
   usersDetail: any;
   addUserFlag: boolean = false;
-  userRole: any
-  userActual: any
+  userRole: any;
+  userActual: any;
+  md5 = new Md5();
 
   user: User = {
     idUser: 0,
@@ -21,18 +23,19 @@ export class UsersComponent implements OnInit {
     englishLevel: '',
     knowledge: '',
     cv: '',
+    role: '',
+    password: '',
   };
   ngOnInit(): void {
     this.getUsers();
-    this. checkUser();
+    this.checkUser();
     console.log(this.userRole);
-    
   }
 
-  checkUser(){
-    this.userActual = sessionStorage.getItem("Sesion");
+  checkUser() {
+    this.userActual = sessionStorage.getItem('Sesion');
     this.userActual = JSON.parse(this.userActual);
-    this.userRole = this.userActual[0].role
+    this.userRole = this.userActual[0].role;
   }
 
   getUsers() {
@@ -50,35 +53,43 @@ export class UsersComponent implements OnInit {
       englishLevel: '',
       knowledge: '',
       cv: '',
+      role: '',
+      password: '',
     };
   }
   saveUser() {
-
-    if(this.user.email !== '' && this.user.cv !== '' && this.user.englishLevel !== '' && this.user.knowledge !== '' ){
+    if (
+      this.user.email !== '' &&
+      this.user.cv !== '' &&
+      this.user.englishLevel !== '' &&
+      this.user.knowledge !== '' &&
+      this.user.role !== '' &&
+      this.user.password !== ''
+    ) {
       delete this.user.idUser;
-    console.log(this.user);
-    this.apiService.saveUser(this.user).subscribe(
-      (res) => {
-        console.log(res);
-        this.cleanUser();
-        alert('¡Usuario almacenado de forma correcta!');
-        this.getUsers();
-        this.addUserFlag = false;
-      },
-      (err) => {
-        console.error(err);
-      }
-    );
+      this.user.password = this.md5.appendStr(this.user.password).end();
+      console.log(this.user);
+      this.apiService.saveUser(this.user).subscribe(
+        (res) => {
+          console.log(res);
+          this.cleanUser();
+          alert('¡Usuario almacenado de forma correcta!');
+          this.getUsers();
+          this.addUserFlag = false;
+        },
+        (err) => {
+          console.error(err);
+        }
+      );
     } else {
-      alert('¡Debes completar todos los campos!')
+      alert('¡Debes completar todos los campos!');
     }
-    
   }
 
   addUserActivate() {
     this.addUserFlag = true;
   }
-  showUsers(){
+  showUsers() {
     this.addUserFlag = false;
   }
   deleteUser(idUser: number) {
@@ -86,7 +97,7 @@ export class UsersComponent implements OnInit {
     this.apiService.deleteUser(idUser).subscribe(
       (res) => {
         console.log(res);
-        alert("¡Usuario eliminado correctamente!");
+        alert('¡Usuario eliminado correctamente!');
         location.reload();
       },
       (err) => {

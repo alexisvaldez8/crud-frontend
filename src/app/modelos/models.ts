@@ -4,6 +4,8 @@ export interface User{
     englishLevel: string;
     knowledge: string;
     cv: string;
+    role: string;
+    password: any;
 }
 export interface Account{
     idAccount?: number;
