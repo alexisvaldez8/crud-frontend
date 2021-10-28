@@ -41,4 +41,22 @@ export class ApiService {
   deleteChange(idChanges : number){
     return this.http.delete(`${this.API}/changes/${idChanges}`)
   }
+  filterByEmail(email : string){
+    return this.http.get(`${this.API}/changes/filter-email/${email}`)
+  }
+  filterByComputer(computer : string){
+    return this.http.get(`${this.API}/changes/filter-computer/${computer}`)
+  }
+  filterByDateStart(dateStart : string){
+    return this.http.get(`${this.API}/changes/filter-date-start/${dateStart}`)
+  }
+  filterByDateEnd(dateEnd : string){
+    return this.http.get(`${this.API}/changes/filter-date-end/${dateEnd}`)
+  }
+  filterByid(id : string){
+    return this.http.get(`${this.API}/changes/filter/${id}`)
+  }
+  updateChange(id: any, updateChange: Change){
+    return this.http.put(`${this.API}/changes/update/${id}`, updateChange);
+  }
 }

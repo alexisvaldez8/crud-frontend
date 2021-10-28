@@ -1,7 +1,24 @@
 <div class="container">
     <app-menu></app-menu>
+    <div class="filter-container">
+        <label for="filter" class="label-filter">Filtrar por:</label>
+        <div class="select-filter-container">
+            <select [(ngModel)]="filter" aria-placeholder="Por Nombre" class="select-css"
+                aria-label="Default select example" name="filter" id="filter">
+                <option *ngFor="let f of filters">{{f}}</option>
+            </select>
+            <input *ngIf="filter !== 'Fecha inicio' && filter !== 'Fecha fin'" [(ngModel)]="filterValue"
+                class="form-control input-filter" id="computer" type="text">
+            <input *ngIf="filter !== 'Email' && filter !== 'Equipo'" [(ngModel)]="filterValue"
+                class="form-control input-filter" id="computer" type="date">
+            <button class="btn btn-outline-danger btn-filter" (click)="filtrar(filter, filterValue)">Filtrar</button>
+            <button *ngIf="clearAllFilters" class="btn btn-outline-danger btn-filter" (click)="getChanges()">Eliminar
+                Filtros</button>
+        </div>
 
-    <table *ngIf="!addChangeFlag" style="margin-top: 32px" class="table table-striped">
+    </div>
+
+    <table *ngIf="!addChangeFlag && !updateChangeFlag" style="margin-top: 32px" class="table table-striped">
         <thead>
             <tr>
                 <th scope="col">id</th>
@@ -18,34 +35,78 @@
                 <td>{{ change.computer }}</td>
                 <td>{{ change.email }}</td>
                 <td>{{ change.dateStart | date:'yyyy-MM-dd' }}</td>
-                <td>{{ change.dateEnd }}</td>
-                <td><button class="btn btn-outline-danger" (click)="deleteChange(change.idChanges)">Eliminar</button></td>
+                <td>{{ change.dateEnd | date:'yyyy-MM-dd' }}</td>
+                <td><button class="btn btn-outline-danger" (click)="deleteChange(change.idChanges)">Eliminar</button>
+                </td>
             </tr>
         </tbody>
     </table>
-    <div class="row">
-        <button style="margin-top: 20px;" type="button" class="col-3 btn btn-outline-danger" (click)="addChangeActivate()" *ngIf="!addChangeFlag">Agregar movimiento</button>
-        <button style="margin-top: 20px; margin-left: 16px;" type="button" class="col-3 btn btn-outline-danger" (click)="updateChange()" *ngIf="!addChangeFlag">Actualizar movimiento</button>
-        <button style="margin-top: 20px; margin-left: 16px;" type="button" class=" col-3 btn btn-outline-danger" (click)="showChanges()" *ngIf="addChangeFlag">Ver Cambios</button>
-    
+    <div class="form-group add-change-container" style="display: flex;">
+        <button style="margin-top: 20px;" type="button" class="col-3 btn btn-outline-danger"
+            (click)="addChangeActivate()" *ngIf="!addChangeFlag && !updateChangeFlag">Agregar movimiento</button>
+        <button style="margin-top: 20px; margin-left: 16px;" type="button" class="col-3 btn btn-outline-danger"
+            (click)="updateChangeFlagActivate()" *ngIf="!addChangeFlag">Actualizar movimiento</button>
+        <button style="margin-top: 20px;" type="button" class=" col-3 btn btn-outline-danger" (click)="showChanges()"
+            *ngIf="addChangeFlag">Ver Cambios</button>
+
     </div>
-    
-    <div id="addChange" class="form-group add-change-container" *ngIf="addChangeFlag">
+
+    <div id="addChange" class="form-group add-change-container" *ngIf="addNewChangeFlag">
         <div class="input-container">
             <label for="computer">Equipo a asignar</label>
-            <input [(ngModel)]="change.computer" class="form-control" id="computer" type="text" placeholder="Ej. Lenovo T40" (blur)="checkChange()">
+            <input [(ngModel)]="change.computer" class="form-control" id="computer" type="text"
+                placeholder="Ej. Lenovo T40" (blur)="checkChange()">
         </div>
         <div class="input-container">
             <label for="user">Responsable</label>
-            <select [(ngModel)]="change.idUser" class="select-css" aria-label="Default select example" name="user" id="user" [disabled]="selectDisabled">
-                <option *ngFor="let user of usersDetail" >{{user.idUser}}</option>
+            <select [(ngModel)]="change.idUser" class="select-css" aria-label="Default select example" name="user"
+                id="user" [disabled]="selectDisabled">
+                <option *ngFor="let user of usersDetail">{{user.idUser}}</option>
             </select>
         </div>
         <div class="input-container">
             <button type="button" class="btn btn-danger" (click)="newChange()">Guardar movimiento</button>
         </div>
-        
+
     </div>
 
+    <div id="addChange" class="form-group add-change-container" *ngIf="updateChangeFlag">
+        <label for="filter" class="label-filter">Selecciona ID del cambio</label>
+        <select [(ngModel)]="changeUpdateId" class="select-css" aria-label="Default select example" name="user"
+            id="user" (change)="getChangeToUpdate(changeUpdateId)">
+            <option *ngFor="let change of changes">{{change.idChanges}}</option>
+        </select>
+
+        <div class="input-container">
+            <label for="computer">Equipo asignado</label>
+            <input [(ngModel)]="changeUpd.computer" class="form-control" id="computer" type="text"
+                placeholder="Ej. Lenovo T40">
+        </div>
+        <div class="input-container">
+            <label for="user">Responsable</label>
+            <input [(ngModel)]="changeUpd.idUser" class="form-control" id="owner" type="text"
+                placeholder="Ej. Lenovo T40">
+        </div>
+        <div class="input-container">
+            <label for="user">Fecha inicio</label>
+            <input [(ngModel)]="changeUpd.dateStart " class="form-control input-filter-date" id="dateStart" type="date"
+                value="{{ changeUpd.dateStart }}">
+        </div>
+
+        <div class="input-container">
+            <label for="user">Fecha fin</label>
+            <input [(ngModel)]="changeUpd.dateEnd" class="form-control input-filter-date" id="dateEnd" type="date"
+                value="{{ changeUpd.dateEnd }}">
+        </div>
+
+
+        <div class="input-container">
+            <button type="button" class="btn btn-danger" (click)="updateChange()">Actualizar movimiento</button>
+        </div>
+
+
+    </div>
+
+
+
 </div>
-   
